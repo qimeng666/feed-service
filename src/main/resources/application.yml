@@ -1,0 +1,40 @@
+server:
+  port: 8082
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+      group-id: feed-service-group
+      auto-offset-reset: earliest
+
+      # 1) 外层使用 ErrorHandlingDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+
+      properties:
+        # 2) 指定 ErrorHandlingDeserializer 的 delegate
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
+        # 只信任你自己定义的包，避免信任所有带来的安全隐患
+        spring.json.trusted.packages: com.example.feed_service.event
+
+        # ——下面两行是关键——
+        # 1. 不再根据消息头里的 __TypeId__ 去加载类
+        spring.json.use.type.headers: false
+        # 2. 默认把所有消息当做下面这个类型来反序列化
+        spring.json.value.default.type: com.example.feed_service.Dto.NoteEvent
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/feed_service_db?useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: 1057555034
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+feign:
+  hystrix:
+    enabled: false
