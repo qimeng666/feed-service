@@ -7,5 +7,5 @@ import java.beans.JavaBean;
 import java.util.List;
 
 public interface UserFeedRepository extends JpaRepository<UserFeed, Long> {
-    List<UserFeed> findByUserIdOrderByCreatedAtDesc(Long userId);
+    List<UserFeed> findByUserIdOrderByCreatedTimeDesc(Long userId);
 }

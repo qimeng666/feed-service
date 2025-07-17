@@ -20,6 +20,12 @@ public class UserFeed {
 
     public UserFeed() {
     }
+    public UserFeed(Long id, Long userId, Long noteId, LocalDateTime createdTime) {
+        this.id = id;
+        this.userId = userId;
+        this.noteId = noteId;
+        this.createdTime = createdTime;
+    }
 
     public Long getId() {
         return this.id;
