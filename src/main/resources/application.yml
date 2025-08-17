@@ -38,3 +38,12 @@ spring:
 feign:
   hystrix:
     enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+  logging:
+    level:
+      com.example.feed_service.clinet: DEBUG

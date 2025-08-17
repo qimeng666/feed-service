@@ -11,4 +11,7 @@ import java.util.List;
 public interface NoteClient {
     @GetMapping("/internal/notes/batch")
     List<NoteDto> getNotesByIds(@RequestParam("ids") List<Long> noteIds);
+    
+    @GetMapping("/internal/notes/byAuthor")
+    List<NoteDto> getNotesByAuthorIds(@RequestParam("userId") Long userId);
 }

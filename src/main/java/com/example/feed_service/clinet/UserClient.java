@@ -15,4 +15,7 @@ import java.util.List;
 public interface UserClient {
     @GetMapping("/internal/users/{userId}/followers")
     List<Long> getFollowers(@PathVariable("userId") Long userId);
+    
+    @GetMapping("/internal/users/{userId}/following")
+    List<Long> getFollowing(@PathVariable("userId") Long userId);
 }

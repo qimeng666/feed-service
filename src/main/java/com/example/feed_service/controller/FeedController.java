@@ -22,4 +22,9 @@ public class FeedController {
 
         return feedService.getFeedForUser(userId, withDetailed);
     }
+    @GetMapping("/notes/{userId}")
+    public List<FeedDto> getNotes(@PathVariable Long userId) {
+
+        return feedService.getNotesForUser(userId);
+    }
 }
